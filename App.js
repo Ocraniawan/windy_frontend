@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Text, View, Image, StyleSheet, Dimensions} from 'react-native';
 import Carousel from 'react-native-banner-carousel';
-import {Tab, Tabs, Left} from 'native-base';
+import {Tab, Tabs, Container} from 'native-base';
+import Bedroom from './src/components/Bedroom';
+import Flightticket from './src/components/Flightticket';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,7 +11,45 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
   },
+  root: {flex: 1, backgroundColor: '#fff'},
+  wrapcarousel: {height: 222},
+  wraptexttitle: {flexDirection: 'row', position: 'absolute', top: 188},
+  clean: {flex: 1},
+  wraptextcount: {flexDirection: 'row', marginBottom: 5, marginRight: 7},
+  wrapnumbertext: {
+    flex: 0,
+    backgroundColor: '#0000008c',
+    padding: 5,
+    height: 29,
+    borderTopLeftRadius: 4,
+    borderBottomLeftRadius: 4,
+    marginRight: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  number: {color: '#fff', fontSize: 12},
+  wraptextpromo: {
+    flex: 0,
+    backgroundColor: '#0000008c',
+    padding: 5,
+    height: 29,
+    borderTopRightRadius: 4,
+    borderBottomRightRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textpromo: {color: '#fff', fontSize: 12},
+  wraptabs: {color: '#fff', fontSize: 12},
+  tabs: {
+    borderBottomWidth: 2,
+    borderBottomColor: '#42a1ef',
+  },
+  tabstyle: {backgroundColor: '#fff'},
+  textstyle: {color: '#b9b4b4'},
+  activetabstyle: {backgroundColor: '#fff', color: 'yellow'},
+  activetextstyle: {color: '#000', fontWeight: 'normal'},
 });
+
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = 222;
 
@@ -43,81 +83,55 @@ export default class App extends Component {
   }
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <View style={{height: 222}}>
-          <View style={styles.container}>
+      <>
+        <View style={styles.root}>
+          <View style={styles.wrapcarousel}>
             <Carousel
               autoplay
               autoplayTimeout={5000}
               loop
               index={0}
-              showsPageIndicator = {false}
+              showsPageIndicator={false}
               pageSize={BannerWidth}>
               {this.state.bannerImage.map((image, index) =>
                 this.renderPage(image, index),
               )}
             </Carousel>
-            <View style={{flexDirection: 'row', position:'absolute', top:188}}>
-              <View style={{flex: 1}} />
-              <View
-                style={{flexDirection: 'row', marginBottom: 5, marginRight: 7}}>
-                <View
-                  style={{
-                    flex: 0,
-                    backgroundColor: '#0000008c',
-                    padding: 5,
-                    height: 29,
-                    borderTopLeftRadius: 4,
-                    borderBottomLeftRadius: 4,
-                    marginRight: 1,
-                  }}>
-                  <Text style={{color: '#fff', fontSize: 12}}> 1/9 </Text>
+            <View style={styles.wraptexttitle}>
+              <View style={styles.clean} />
+              <View style={styles.wraptextcount}>
+                <View style={styles.wrapnumbertext}>
+                  <Text style={styles.number}> 1/9 </Text>
                 </View>
-                <View
-                  style={{
-                    flex: 0,
-                    backgroundColor: '#0000008c',
-                    padding: 5,
-                    height: 29,
-                    borderTopRightRadius: 4,
-                    borderBottomRightRadius: 4,
-                  }}>
-                  <Text style={{color: '#fff', fontSize: 12}}>
-                    {' '}
-                    Lihat Semua Promo{' '}
-                  </Text>
+                <View style={styles.wraptextpromo}>
+                  <Text style={styles.textpromo}>Lihat Semua Promo</Text>
                 </View>
               </View>
             </View>
-     
           </View>
+
+          <Container>
+            <Tabs tabBarUnderlineStyle={styles.tabs}>
+              <Tab
+                heading="Kamar"
+                tabStyle={styles.tabstyle}
+                textStyle={styles.textstyle}
+                activeTabStyle={styles.activetabstyle}
+                activeTextStyle={styles.activetextstyle}>
+                <Bedroom />
+              </Tab>
+              <Tab
+                heading="Tiket Pesawat"
+                tabStyle={styles.tabstyle}
+                textStyle={styles.textstyle}
+                activeTabStyle={styles.activetabstyle}
+                activeTextStyle={styles.activetextstyle}>
+                <Flightticket />
+              </Tab>
+            </Tabs>
+          </Container>
         </View>
-        <View style={{flex: 1, backgroundColor: '#fff', flexDirection: 'row'}}>
-          <Tabs
-            tabBarUnderlineStyle={{
-              borderBottomWidth: 2,
-              borderBottomColor: '#42a1ef',
-            }}>
-            <Tab
-              heading="Kamar"
-              tabStyle={{backgroundColor: '#fff'}}
-              textStyle={{color: '#b9b4b4'}}
-              activeTabStyle={{backgroundColor: '#fff', color: 'yellow'}}
-              activeTextStyle={{color: '#000', fontWeight: 'normal'}}>
-              <Text>test1</Text>
-            </Tab>
-            <Tab
-              heading="Tiket Pesawat"
-              tabStyle={{backgroundColor: '#fff'}}
-              textStyle={{color: '#b9b4b4'}}
-              activeTabStyle={{backgroundColor: '#fff', color: 'yellow'}}
-              activeTextStyle={{color: '#000', fontWeight: 'normal'}}>
-              <Text>test1</Text>
-            </Tab>
-          </Tabs>
-          <View />
-        </View>
-      </View>
+      </>
     );
   }
 }
