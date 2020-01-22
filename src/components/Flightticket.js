@@ -12,6 +12,7 @@ import {Switch} from 'native-base';
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
   wrapper: {flexDirection: 'row', paddingLeft: 18, paddingTop: 5},
+  awrapper: {marginTop: 10},
   wrapicon: {marginRight: 10},
   icon: {height: 34, width: 34},
   wraptext: {
@@ -20,15 +21,33 @@ const styles = StyleSheet.create({
     borderBottomColor: '#EDEFF1',
     width: '100%',
   },
-  wraptext1: {
-    width: 270,
+  wraptexta: {
+    borderBottomWidth: 1,
+    paddingBottom: 10,
+    borderBottomColor: '#EDEFF1',
+    width: '77%',
   },
-  tinytext: {fontSize: 12, color: '#A0A8AA', paddingBottom: 5},
+  wraptext1: {
+    width: 240,
+  },
+  tinytext: {
+    fontSize: 11,
+    color: '#A0A8AA',
+    paddingBottom: 5,
+    fontFamily: 'MuseoSansRounded500',
+  },
+  tinytexta: {
+    fontSize: 11,
+    color: '#A0A8AA',
+    paddingBottom: 5,
+    marginLeft: 10,
+    fontFamily: 'MuseoSansRounded500',
+  },
   text: {
     fontSize: 16,
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-    fontFamily: 'Roboto_medium',
+    fontFamily: 'MuseoSansRounded500',
   },
   wrapcout: {flexDirection: 'row', alignItems: 'flex-end'},
   textcout: {
@@ -36,14 +55,14 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginLeft: 12,
     paddingBottom: 2,
-    fontFamily: 'Roboto',
+    fontFamily: 'MuseoSansRounded500',
   },
   textcout1: {
     color: '#5F5F5F',
     fontSize: 13,
     marginLeft: 0,
     paddingBottom: 2,
-    fontFamily: 'Roboto',
+    fontFamily: 'MuseoSansRounded500',
   },
   wrappointer: {
     flexDirection: 'row',
@@ -52,7 +71,16 @@ const styles = StyleSheet.create({
     borderBottomColor: '#EDEFF1',
     width: '100%',
   },
-  wrapiconpoint: {width: 40},
+  wrapiconpoint: {width: 80, paddingRight: 0},
+  wrapswitchico: {
+    top: 30,
+    backgroundColor: '#fff',
+    width: 35,
+    height: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconswitch: {height: 30, width: 30},
   iconpoint: {height: 40, width: 40},
   button: {
     height: 46,
@@ -65,8 +93,7 @@ const styles = StyleSheet.create({
   wrapfooter: {alignItems: 'center', marginTop: 22},
   textbutton: {
     fontSize: 16,
-    fontFamily: 'Roboto-medium',
-    fontWeight: 'bold',
+    fontFamily: 'MuseoSansRounded700',
   },
   wrapinfo: {
     flexDirection: 'row',
@@ -94,9 +121,9 @@ class Flighticket extends Component {
   render() {
     const {isToggle} = this.state;
     return (
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.root}>
-          <View style={{marginTop: 10}}>
+          <View style={styles.awrapper}>
             <TouchableOpacity>
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
@@ -105,9 +132,17 @@ class Flighticket extends Component {
                     style={styles.icon}
                   />
                 </View>
-                <View style={styles.wraptext}>
+                <View style={styles.wraptexta}>
                   <Text style={styles.tinytext}>Kota Asal</Text>
                   <Text style={styles.text}>Pilih Kota Asal</Text>
+                </View>
+                <View style={styles.wrapswitchico}>
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../assets/switchico.jpeg')}
+                      style={styles.iconswitch}
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
             </TouchableOpacity>
@@ -139,7 +174,12 @@ class Flighticket extends Component {
                     <Text style={styles.text}>22 Januari 2020</Text>
                   </View>
                   <View style={styles.wrapiconpoint}>
-                    <Switch onValueChange={this.toggle} value={isToggle} />
+                    <Text style={styles.tinytexta}>Pulang-Pergi?</Text>
+                    <Switch
+                      onValueChange={this.toggle}
+                      onthumbColor="#eee"
+                      value={isToggle}
+                    />
                   </View>
                 </View>
               </View>
@@ -180,7 +220,7 @@ class Flighticket extends Component {
           <View style={styles.wrapfooter}>
             <TouchableOpacity>
               <View style={styles.button}>
-                <Text style={styles.textbutton}>Cari Kamar Airy Rooms</Text>
+                <Text style={styles.textbutton}>Cari Penerbangan</Text>
               </View>
             </TouchableOpacity>
           </View>

@@ -11,6 +11,7 @@ import {
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
   wrapper: {flexDirection: 'row', paddingLeft: 13, paddingTop: 15},
+  awrapper: {marginTop: 20},
   wrapicon: {marginRight: 10},
   icon: {height: 34, width: 34},
   wraptext: {
@@ -22,12 +23,17 @@ const styles = StyleSheet.create({
   wraptext1: {
     width: 270,
   },
-  tinytext: {fontSize: 12, color: '#A0A8AA', marginBottom: 5},
+  tinytext: {
+    fontSize: 12,
+    color: '#A0A8AA',
+    marginBottom: 5,
+    fontFamily: 'MuseoSansRounded500',
+  },
   text: {
     fontSize: 16,
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-    fontFamily: 'Roboto_medium',
+    fontFamily: 'MuseoSansRounded500',
   },
   wrapcout: {flexDirection: 'row', alignItems: 'flex-end'},
   textcout: {
@@ -35,14 +41,14 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginLeft: 12,
     paddingBottom: 2,
-    fontFamily: 'Roboto',
+    fontFamily: 'MuseoSansRounded500',
   },
   textcout1: {
     color: '#5F5F5F',
     fontSize: 13,
     marginLeft: 0,
     paddingBottom: 2,
-    fontFamily: 'Roboto',
+    fontFamily: 'MuseoSansRounded500',
   },
   wrappointer: {
     flexDirection: 'row',
@@ -64,8 +70,7 @@ const styles = StyleSheet.create({
   wrapfooter: {alignItems: 'center', marginTop: 22},
   textbutton: {
     fontSize: 16,
-    fontFamily: 'Roboto-medium',
-    fontWeight: 'bold',
+    fontFamily: 'MuseoSansRounded700',
   },
   wrapinfo: {
     flexDirection: 'row',
@@ -80,9 +85,9 @@ const styles = StyleSheet.create({
 class Flighticket extends Component {
   render() {
     return (
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.root}>
-          <View styles={{marginTop: 20}}>
+          <View styles={styles.awrapper}>
             <TouchableOpacity>
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
