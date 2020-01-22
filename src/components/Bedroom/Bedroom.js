@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   iconlike: {height: 160, width: '100%'},
 });
 
-class Flighticket extends Component {
+class Bedroom extends Component {
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -92,7 +92,7 @@ class Flighticket extends Component {
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
-                    source={require('../assets/loc.jpeg')}
+                    source={require('../../assets/loc.jpeg')}
                     style={styles.icon}
                   />
                 </View>
@@ -103,7 +103,7 @@ class Flighticket extends Component {
                   </View>
                   <View style={styles.wrapiconpoint}>
                     <Image
-                      source={require('../assets/point.jpeg')}
+                      source={require('../../assets/point.jpeg')}
                       style={styles.iconpoint}
                     />
                   </View>
@@ -114,7 +114,7 @@ class Flighticket extends Component {
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
-                    source={require('../assets/date.jpeg')}
+                    source={require('../../assets/date.jpeg')}
                     style={styles.icon}
                   />
                 </View>
@@ -128,7 +128,7 @@ class Flighticket extends Component {
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
-                    source={require('../assets/date1.jpeg')}
+                    source={require('../../assets/date1.jpeg')}
                     style={styles.icon}
                   />
                 </View>
@@ -153,7 +153,7 @@ class Flighticket extends Component {
           </View>
           <View style={styles.wrapinfo}>
             <Image
-              source={require('../assets/like.jpeg')}
+              source={require('../../assets/like.jpeg')}
               style={styles.icon}
             />
             <Text style={styles.textcout1}>
@@ -162,7 +162,7 @@ class Flighticket extends Component {
           </View>
           <View style={styles.wrapiconlike}>
             <Image
-              source={require('../assets/background.jpeg')}
+              source={require('../../assets/background.jpeg')}
               style={styles.iconlike}
             />
           </View>
@@ -171,4 +171,4 @@ class Flighticket extends Component {
     );
   }
 }
-export default Flighticket;
+export default Bedroom;

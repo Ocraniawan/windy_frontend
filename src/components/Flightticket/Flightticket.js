@@ -128,7 +128,7 @@ class Flighticket extends Component {
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
-                    source={require('../assets/flight1.jpeg')}
+                    source={require('../../assets/flight1.jpeg')}
                     style={styles.icon}
                   />
                 </View>
@@ -139,7 +139,7 @@ class Flighticket extends Component {
                 <View style={styles.wrapswitchico}>
                   <TouchableOpacity>
                     <Image
-                      source={require('../assets/switchico.jpeg')}
+                      source={require('../../assets/switchico.jpeg')}
                       style={styles.iconswitch}
                     />
                   </TouchableOpacity>
@@ -150,7 +150,7 @@ class Flighticket extends Component {
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
-                    source={require('../assets/flight2.jpeg')}
+                    source={require('../../assets/flight2.jpeg')}
                     style={styles.icon}
                   />
                 </View>
@@ -164,7 +164,7 @@ class Flighticket extends Component {
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
-                    source={require('../assets/date.jpeg')}
+                    source={require('../../assets/date.jpeg')}
                     style={styles.icon}
                   />
                 </View>
@@ -189,7 +189,7 @@ class Flighticket extends Component {
                 <View style={styles.wrapper}>
                   <View style={styles.wrapicon}>
                     <Image
-                      source={require('../assets/date.jpeg')}
+                      source={require('../../assets/date.jpeg')}
                       style={styles.icon}
                     />
                   </View>
@@ -206,7 +206,7 @@ class Flighticket extends Component {
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
-                    source={require('../assets/users.jpeg')}
+                    source={require('../../assets/users.jpeg')}
                     style={styles.icon}
                   />
                 </View>
@@ -226,7 +226,7 @@ class Flighticket extends Component {
           </View>
           <View style={styles.wrapinfo}>
             <Image
-              source={require('../assets/like.jpeg')}
+              source={require('../../assets/like.jpeg')}
               style={styles.icon}
             />
             <Text style={styles.textcout1}>
@@ -235,7 +235,7 @@ class Flighticket extends Component {
           </View>
           <View style={styles.wrapiconlike}>
             <Image
-              source={require('../assets/background.jpeg')}
+              source={require('../../assets/background.jpeg')}
               style={styles.iconlike}
             />
           </View>
