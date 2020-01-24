@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {Text, View, Image, StyleSheet, Dimensions} from 'react-native';
 import Carousel from 'react-native-banner-carousel';
 import {Tab, Tabs, Container} from 'native-base';
-import Bedroom from '../components/Bedroom';
-import Flightticket from '../components/Flightticket';
+import Bedroom from '../components/Bedroom/Bedroom';
+import Flightticket from '../components/Flightticket/Flightticket';
+import {withNavigation} from 'react-navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -53,20 +54,20 @@ const styles = StyleSheet.create({
 const BannerWidth = Dimensions.get('window').width;
 const BannerHeight = 222;
 
-class Home extends Component {
+class HomeOriginal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       bannerImage: [
         require('../assets/banner1.png'),
-        require('.../assets/banner2.png'),
-        require('.../assets/banner3.png'),
-        require('.../assets/banner4.jpg'),
-        require('.../assets/banner5.jpg'),
-        require('.../assets/banner6.jpg'),
-        require('.../assets/banner7.jpg'),
-        require('.../assets/banner8.jpg'),
-        require('.../assets/banner9.jpg'),
+        require('../assets/banner2.png'),
+        require('../assets/banner3.png'),
+        require('../assets/banner4.jpg'),
+        require('../assets/banner5.jpg'),
+        require('../assets/banner6.jpg'),
+        require('../assets/banner7.jpg'),
+        require('../assets/banner8.jpg'),
+        require('../assets/banner9.jpg'),
       ],
     };
   }
@@ -136,4 +137,5 @@ class Home extends Component {
   }
 }
 
+const Home = withNavigation(HomeOriginal);
 export default Home;

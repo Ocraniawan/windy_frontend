@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
-import {Text, View, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Form, Item, Input, Label} from 'native-base';
+import {withNavigation} from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -68,7 +76,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class ForgotPass extends Component {
+class ForgotPassOriginal extends Component {
   render() {
     return (
       <View style={styles.root}>
@@ -92,40 +100,44 @@ export default class ForgotPass extends Component {
             </View>
           </View>
         </LinearGradient>
-        <View style={styles.iconemail}>
-          <Image
-            source={require('../../assets/iconemail.jpeg')}
-            style={styles.iconemail1}
-          />
-        </View>
-
-        <View>
-          <View style={styles.wrapcontent}>
-            <Text style={styles.textbold}>Request kode verifikasi</Text>
-            <Text style={styles.textnormal}>
-              Kode verifikasi dan petunjuk pengaturan password baru akan
-            </Text>
-            <Text style={styles.textnormal}>
-              dikirim ke email Anda. Silakan masukkan email akun Airy Anda:
-            </Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.iconemail}>
+            <Image
+              source={require('../../assets/iconemail.jpeg')}
+              style={styles.iconemail1}
+            />
           </View>
-        </View>
-        <View style={styles.wrapinput}>
-          <Form>
-            <Item floatingLabel>
-              <Label style={styles.lableinput}>Email</Label>
-              <Input />
-            </Item>
-          </Form>
-        </View>
-        <View style={styles.wrapbutton}>
-          <TouchableOpacity>
-            <View style={styles.buttonlogin}>
-              <Text style={styles.textbutton}>SUBMIT</Text>
+
+          <View>
+            <View style={styles.wrapcontent}>
+              <Text style={styles.textbold}>Request kode verifikasi</Text>
+              <Text style={styles.textnormal}>
+                Kode verifikasi dan petunjuk pengaturan password baru akan
+              </Text>
+              <Text style={styles.textnormal}>
+                dikirim ke email Anda. Silakan masukkan email akun Airy Anda:
+              </Text>
             </View>
-          </TouchableOpacity>
-        </View>
+          </View>
+          <View style={styles.wrapinput}>
+            <Form>
+              <Item floatingLabel>
+                <Label style={styles.lableinput}>Email</Label>
+                <Input />
+              </Item>
+            </Form>
+          </View>
+          <View style={styles.wrapbutton}>
+            <TouchableOpacity>
+              <View style={styles.buttonlogin}>
+                <Text style={styles.textbutton}>SUBMIT</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     );
   }
 }
+const ForgotPass = withNavigation(ForgotPassOriginal);
+export default ForgotPass;

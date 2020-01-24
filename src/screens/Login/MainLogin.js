@@ -1,6 +1,14 @@
 import React, {Component} from 'react';
-import {Text, View, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {withNavigation} from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -79,7 +87,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
 });
-class MainLogin extends Component {
+class MainLoginOriginal extends Component {
   render() {
     return (
       <View style={styles.root}>
@@ -88,7 +96,7 @@ class MainLogin extends Component {
           end={{x: 1.5, y: 0}}
           colors={['#007EEF', '#40C2F2']}>
           <View style={styles.header}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
               <View style={styles.wraparrowico}>
                 <Image
                   source={require('../../assets/arrow.jpeg')}
@@ -101,49 +109,53 @@ class MainLogin extends Component {
             </View>
           </View>
         </LinearGradient>
-
-        <View style={styles.wrapbanner}>
-          <Image
-            source={require('../../assets/bannerlog.jpeg')}
-            style={styles.imgbanner}
-          />
-        </View>
-        <View style={styles.wrapcontent}>
-          <TouchableOpacity>
-            <View style={styles.buttonlogin}>
-              <Text style={styles.textbutton}>MASUK</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={styles.buttonregister}>
-              <Text style={styles.textbutton}>DAFTAR</Text>
-            </View>
-          </TouchableOpacity>
-          <View style={styles.wraptexttiny}>
-            <Text style={styles.texttiny}>atau</Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.wrapbanner}>
+            <Image
+              source={require('../../assets/bannerlog.jpeg')}
+              style={styles.imgbanner}
+            />
           </View>
-          <TouchableOpacity>
-            <View style={styles.wrapsocmed}>
-              <Image
-                source={require('../../assets/assets/fbico.png')}
-                style={styles.ico}
-              />
-              <Text style={styles.textfb}>Lanjutkan dengan Facebook</Text>
+          <View style={styles.wrapcontent}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Login')}>
+              <View style={styles.buttonlogin}>
+                <Text style={styles.textbutton}>MASUK</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Register')}>
+              <View style={styles.buttonregister}>
+                <Text style={styles.textbutton}>DAFTAR</Text>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.wraptexttiny}>
+              <Text style={styles.texttiny}>atau</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={styles.wrapsocmed}>
-              <Image
-                source={require('../../assets/googleico.jpg')}
-                style={styles.ico}
-              />
-              <Text style={styles.textgoogle}>Lanjutkan dengan Google</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity>
+              <View style={styles.wrapsocmed}>
+                <Image
+                  source={require('../../assets/fbico.png')}
+                  style={styles.ico}
+                />
+                <Text style={styles.textfb}>Lanjutkan dengan Facebook</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={styles.wrapsocmed}>
+                <Image
+                  source={require('../../assets/googleico.jpg')}
+                  style={styles.ico}
+                />
+                <Text style={styles.textgoogle}>Lanjutkan dengan Google</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     );
   }
 }
 
+const MainLogin = withNavigation(MainLoginOriginal);
 export default MainLogin;

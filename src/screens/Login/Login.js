@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
-import {Text, View, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Form, Item, Input, Label} from 'native-base';
+import {withNavigation} from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -83,7 +91,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Login extends Component {
+class LoginOriginal extends Component {
   render() {
     return (
       <View style={styles.root}>
@@ -92,7 +100,7 @@ export default class Login extends Component {
           end={{x: 1.5, y: 0}}
           colors={['#007EEF', '#40C2F2']}>
           <View style={styles.header}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
               <View style={styles.wraparrowico}>
                 <Image
                   source={require('../../assets/arrow.jpeg')}
@@ -105,45 +113,52 @@ export default class Login extends Component {
             </View>
           </View>
         </LinearGradient>
-        <View style={styles.wraplogo}>
-          <Image
-            source={require('../../assets/logo.png')}
-            style={styles.icologo}
-          />
-        </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.wraplogo}>
+            <Image
+              source={require('../../assets/logo.png')}
+              style={styles.icologo}
+            />
+          </View>
 
-        <View style={styles.wrapinput}>
-          <Form>
-            <Item floatingLabel>
-              <Label style={styles.lableinput}>Email</Label>
-              <Input />
-            </Item>
-            <Item floatingLabel>
-              <Label style={styles.lableinput}>Password</Label>
-              <Input />
-            </Item>
-          </Form>
-        </View>
-        <View style={styles.wrapbutton}>
-          <TouchableOpacity>
-            <View style={styles.buttonlogin}>
-              <Text style={styles.textbutton}>MASUK</Text>
+          <View style={styles.wrapinput}>
+            <Form>
+              <Item floatingLabel>
+                <Label style={styles.lableinput}>Email</Label>
+                <Input />
+              </Item>
+              <Item floatingLabel>
+                <Label style={styles.lableinput}>Password</Label>
+                <Input />
+              </Item>
+            </Form>
+          </View>
+          <View style={styles.wrapbutton}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Cari')}>
+              <View style={styles.buttonlogin}>
+                <Text style={styles.textbutton}>MASUK</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('ForgotPass')}>
+            <View style={styles.wraptextforgot}>
+              <Text style={styles.textblue}>LUPA PASSWORD?</Text>
             </View>
           </TouchableOpacity>
-        </View>
-        <TouchableOpacity>
-          <View style={styles.wraptextforgot}>
-            <Text style={styles.textblue}>LUPA PASSWORD?</Text>
-          </View>
-        </TouchableOpacity>
 
-        <View style={styles.wrapdaftar}>
-          <Text style={styles.texttiny}>Belum punya akun Airy?</Text>
-          <TouchableOpacity>
-            <Text style={styles.textblue}>DAFTAR</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.wrapdaftar}>
+            <Text style={styles.texttiny}>Belum punya akun Airy?</Text>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Register')}>
+              <Text style={styles.textblue}>DAFTAR</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     );
   }
 }
+const Login = withNavigation(LoginOriginal);
+export default Login;

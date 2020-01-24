@@ -10,7 +10,6 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {Form, Item, Input, Label} from 'native-base';
 import {withNavigation} from 'react-navigation';
-import {Dropdown} from 'react-native-material-dropdown';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -18,6 +17,16 @@ const styles = StyleSheet.create({
     fontFamily: 'MuseoSansRounded500',
     color: '#fff',
     fontSize: 16,
+  },
+  textheader1: {
+    fontFamily: 'MuseoSansRounded300',
+    color: '#000',
+    fontSize: 14,
+  },
+  textheader11: {
+    fontFamily: 'MuseoSansRounded300',
+    color: '#BEC3C6',
+    fontSize: 14,
   },
   header: {
     flexDirection: 'row',
@@ -62,6 +71,7 @@ const styles = StyleSheet.create({
   wraplogo: {height: 140, alignItems: 'center', justifyContent: 'center'},
   icologo: {height: 70, width: 130, marginTop: 25},
   wrapinput: {paddingHorizontal: 20, flex: 1},
+  wrapinput2: {paddingHorizontal: 20, flex: 1, flexDirection: 'row'},
   wrapinput1: {paddingHorizontal: 20, marginLeft: 15, flex: 1},
   lableinput: {
     fontSize: 12,
@@ -92,21 +102,35 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   wrapname: {flexDirection: 'row'},
+  wrapcontent: {marginTop: 15},
+  wrapubah: {
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    marginBottom: 10,
+  },
+  wraplogout: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+    marginTop: 50,
+  },
+
+  textubah: {
+    color: '#40C2F2',
+    fontFamily: 'MuseoSansRounded700',
+    fontSize: 12,
+    textDecorationLine: 'underline',
+  },
+  textlogout: {
+    color: '#40C2F2',
+    fontFamily: 'MuseoSansRounded500',
+    fontSize: 14,
+  },
+  flex: {flex: 1},
 });
 
-class RegisterOriginal extends Component {
+class ChangePassOriginal extends Component {
   render() {
-    let data = [
-      {
-        value: 'Mr',
-      },
-      {
-        value: 'Mrs',
-      },
-      {
-        value: 'MR',
-      },
-    ];
     return (
       <View style={styles.root}>
         <LinearGradient
@@ -123,79 +147,39 @@ class RegisterOriginal extends Component {
               </View>
             </TouchableOpacity>
             <View>
-              <Text style={styles.textheader}>Daftar</Text>
+              <Text style={styles.textheader}>Ubah Password</Text>
             </View>
           </View>
         </LinearGradient>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.wrapinput}>
-            <Form>
-              <Item floatingLabel>
-                <Label style={styles.lableinput}>Username</Label>
-                <Input />
-              </Item>
-            </Form>
-          </View>
-          <View style={styles.wrapinput1}>
-            <Dropdown label="Title" data={data} />
-          </View>
-
-          <View style={styles.wrapname}>
+          <View style={styles.wrapcontent}>
             <View style={styles.wrapinput}>
               <Form>
                 <Item floatingLabel>
-                  <Label style={styles.lableinput}>First Name</Label>
-                  <Input />
+                  <Label style={styles.lableinput}>Password lama</Label>
+                  <Input style={styles.textheader1} secureTextEntry />
                 </Item>
               </Form>
-            </View>
-            <View style={styles.wrapinput}>
               <Form>
                 <Item floatingLabel>
-                  <Label style={styles.lableinput}>Last Name</Label>
-                  <Input />
+                  <Label style={styles.lableinput}>Password baru</Label>
+                  <Input style={styles.textheader1} secureTextEntry />
+                </Item>
+              </Form>
+              <Form>
+                <Item floatingLabel>
+                  <Label style={styles.lableinput}>Ketik ulang password</Label>
+                  <Input style={styles.textheader1} secureTextEntry />
                 </Item>
               </Form>
             </View>
-          </View>
-          <View style={styles.wrapinput}>
-            <Form>
-              <Item floatingLabel>
-                <Label style={styles.lableinput}>Email</Label>
-                <Input />
-              </Item>
-            </Form>
-          </View>
-          <View style={styles.wrapinput}>
-            <Form>
-              <Item floatingLabel>
-                <Label style={styles.lableinput}>Phone Number</Label>
-                <Input />
-              </Item>
-            </Form>
-          </View>
-          <View style={styles.wrapinput}>
-            <Form>
-              <Item floatingLabel>
-                <Label style={styles.lableinput}>Password</Label>
-                <Input secureTextEntry />
-              </Item>
-            </Form>
-          </View>
-          <View style={styles.wrapbutton}>
-            <TouchableOpacity>
-              <View style={styles.buttonlogin}>
-                <Text style={styles.textbutton}>DAFTAR</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.wrapdaftar}>
-            <Text style={styles.texttiny}>Sudah punya akun Airy?</Text>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Login')}>
-              <Text style={styles.textblue}>MASUK</Text>
-            </TouchableOpacity>
+            <View style={styles.wrapbutton}>
+              <TouchableOpacity>
+                <View style={styles.buttonlogin}>
+                  <Text style={styles.textbutton}>SIMPAN</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
       </View>
@@ -203,5 +187,5 @@ class RegisterOriginal extends Component {
   }
 }
 
-const Register = withNavigation(RegisterOriginal);
-export default Register;
+const ChangePass = withNavigation(ChangePassOriginal);
+export default ChangePass;

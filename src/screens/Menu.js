@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {withNavigation} from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     fontFamily: 'MuseoSansRounded500',
   },
 });
-export default class Menu extends Component {
+class MenuOriginal extends Component {
   render() {
     return (
       <View style={styles.root}>
@@ -160,7 +161,7 @@ export default class Menu extends Component {
             <Text style={styles.textheader}>Menu</Text>
           </View>
         </LinearGradient>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <LinearGradient
             start={{x: 0, y: 0}}
             end={{x: 1.5, y: 0}}
@@ -177,7 +178,8 @@ export default class Menu extends Component {
                   kamar & tiket pesawat melalui aplikasi Airy
                 </Text>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('MainLogin')}>
                 <View style={styles.button}>
                   <Text style={styles.textbutton}>MASUK/DAFTAR</Text>
                 </View>
@@ -207,7 +209,8 @@ export default class Menu extends Component {
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Account')}>
               <View style={styles.wrapmenu}>
                 <View style={styles.wrapmenucomp}>
                   <View style={styles.wrapicon}>
@@ -216,9 +219,6 @@ export default class Menu extends Component {
                       style={styles.icon}
                     />
                     <Text style={styles.textcomp}>Akun</Text>
-                  </View>
-                  <View style={styles.badgeerror}>
-                    <Text style={styles.textbadge}>!</Text>
                   </View>
                 </View>
               </View>
@@ -231,10 +231,7 @@ export default class Menu extends Component {
                       source={require('../assets/completerefund.jpeg')}
                       style={styles.icon}
                     />
-                    <Text style={styles.textcomp}>Refund</Text>
-                  </View>
-                  <View style={styles.badgewarning}>
-                    <Text style={styles.textbadge}>!</Text>
+                    <Text style={styles.textcomp}>Top-up Balance</Text>
                   </View>
                 </View>
               </View>
@@ -372,3 +369,5 @@ export default class Menu extends Component {
     );
   }
 }
+const Menu = withNavigation(MenuOriginal);
+export default Menu;

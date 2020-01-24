@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import {withNavigation} from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -82,13 +83,14 @@ const styles = StyleSheet.create({
   iconlike: {height: 160, width: '100%'},
 });
 
-class Bedroom extends Component {
+class BedroomOriginal extends Component {
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.root}>
           <View styles={styles.awrapper}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('SearchLoc')}>
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
@@ -110,7 +112,8 @@ class Bedroom extends Component {
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Datepicker')}>
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
@@ -124,7 +127,8 @@ class Bedroom extends Component {
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('ListDurasi')}>
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
@@ -145,7 +149,8 @@ class Bedroom extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.wrapfooter}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('ListBedroom')}>
               <View style={styles.button}>
                 <Text style={styles.textbutton}>Cari Kamar Airy Rooms</Text>
               </View>
@@ -171,4 +176,5 @@ class Bedroom extends Component {
     );
   }
 }
+const Bedroom = withNavigation(BedroomOriginal);
 export default Bedroom;
