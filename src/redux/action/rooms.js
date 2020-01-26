@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {APP_URL} from '../../config/config';
 
-const url = APP_URL.concat('hotel');
+const url = APP_URL.concat('rooms');
 
 export const gethotel = search => {
   return {

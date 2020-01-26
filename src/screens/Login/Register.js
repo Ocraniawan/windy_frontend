@@ -10,7 +10,8 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {Form, Item, Input, Label} from 'native-base';
 import {withNavigation} from 'react-navigation';
-import {Dropdown} from 'react-native-material-dropdown';
+import {connect} from 'react-redux';
+import {register} from '../../redux/action/Register';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -95,18 +96,53 @@ const styles = StyleSheet.create({
 });
 
 class RegisterOriginal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: '',
+      username: '',
+      first_name: '',
+      last_name: '',
+      phone_number: '',
+      email: '',
+      password: '',
+    };
+  }
+
+  register = async () => {
+    const {
+      title,
+      username,
+      first_name,
+      last_name,
+      phone_number,
+      email,
+      password,
+    } = this.state;
+    await this.props.dispatch(
+      register({
+        title_id: title,
+        username,
+        first_name,
+        last_name,
+        phone_number,
+        email,
+        password,
+      }),
+    );
+    console.log(this.props.Register);
+    if (this.props.Register.data.succsess) {
+      alert('Akun berhasil di buat. Silahkan Login untuk melanjutkan');
+      this.props.navigation.navigate('Login');
+    } else if (this.props.Register.data.msg) {
+      alert('Username/Email sudah digunakan.');
+    } else {
+      alert('Register gagal.');
+    }
+  };
+
   render() {
-    let data = [
-      {
-        value: 'Mr',
-      },
-      {
-        value: 'Mrs',
-      },
-      {
-        value: 'MR',
-      },
-    ];
     return (
       <View style={styles.root}>
         <LinearGradient
@@ -132,12 +168,17 @@ class RegisterOriginal extends Component {
             <Form>
               <Item floatingLabel>
                 <Label style={styles.lableinput}>Username</Label>
-                <Input />
+                <Input onChangeText={e => this.setState({username: e})} />
               </Item>
             </Form>
           </View>
           <View style={styles.wrapinput1}>
-            <Dropdown label="Title" data={data} />
+            <Form>
+              <Item floatingLabel>
+                <Label style={styles.lableinput}>Title</Label>
+                <Input onChangeText={e => this.setState({title: e})} />
+              </Item>
+            </Form>
           </View>
 
           <View style={styles.wrapname}>
@@ -145,7 +186,7 @@ class RegisterOriginal extends Component {
               <Form>
                 <Item floatingLabel>
                   <Label style={styles.lableinput}>First Name</Label>
-                  <Input />
+                  <Input onChangeText={e => this.setState({first_name: e})} />
                 </Item>
               </Form>
             </View>
@@ -153,7 +194,7 @@ class RegisterOriginal extends Component {
               <Form>
                 <Item floatingLabel>
                   <Label style={styles.lableinput}>Last Name</Label>
-                  <Input />
+                  <Input onChangeText={e => this.setState({last_name: e})} />
                 </Item>
               </Form>
             </View>
@@ -162,7 +203,7 @@ class RegisterOriginal extends Component {
             <Form>
               <Item floatingLabel>
                 <Label style={styles.lableinput}>Email</Label>
-                <Input />
+                <Input onChangeText={e => this.setState({email: e})} />
               </Item>
             </Form>
           </View>
@@ -170,7 +211,7 @@ class RegisterOriginal extends Component {
             <Form>
               <Item floatingLabel>
                 <Label style={styles.lableinput}>Phone Number</Label>
-                <Input />
+                <Input onChangeText={e => this.setState({phone_number: e})} />
               </Item>
             </Form>
           </View>
@@ -178,12 +219,15 @@ class RegisterOriginal extends Component {
             <Form>
               <Item floatingLabel>
                 <Label style={styles.lableinput}>Password</Label>
-                <Input secureTextEntry />
+                <Input
+                  onChangeText={e => this.setState({password: e})}
+                  secureTextEntry
+                />
               </Item>
             </Form>
           </View>
           <View style={styles.wrapbutton}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.register}>
               <View style={styles.buttonlogin}>
                 <Text style={styles.textbutton}>DAFTAR</Text>
               </View>
@@ -204,4 +248,10 @@ class RegisterOriginal extends Component {
 }
 
 const Register = withNavigation(RegisterOriginal);
-export default Register;
+const mapStateToProps = state => {
+  return {
+    Register: state.Register,
+  };
+};
+
+export default connect(mapStateToProps)(Register);

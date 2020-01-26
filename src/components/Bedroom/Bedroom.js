@@ -9,6 +9,9 @@ import {
 } from 'react-native';
 import {withNavigation} from 'react-navigation';
 import DatePicker from 'react-native-datepicker';
+import {connect} from 'react-redux';
+import {gethotel} from '../../redux/action/Hotel';
+import {Input} from 'native-base';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -88,15 +91,25 @@ const styles = StyleSheet.create({
 class BedroomOriginal extends Component {
   constructor(props) {
     super(props);
-    this.state = {date: new Date()};
+    this.state = {
+      date: new Date(),
+      search: '',
+    };
   }
+  handleInput = search => {
+    this.setState({search});
+  };
+  findHotel = async () => {
+    const {search} = this.state;
+    this.props.dispatch(gethotel(search));
+  };
   render() {
+    const {search} = this.state;
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.root}>
           <View styles={styles.awrapper}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('SearchLoc')}>
+            <TouchableOpacity>
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
@@ -107,7 +120,13 @@ class BedroomOriginal extends Component {
                 <View style={styles.wrappointer}>
                   <View style={styles.wraptext1}>
                     <Text style={styles.tinytext}>Airy Rooms di Sekitar</Text>
-                    <Text style={styles.text}>Bogor</Text>
+                    {/* <Text style={styles.text}>{search}</Text> */}
+                    <Input
+                      style={styles.text}
+                      onChangeText={e => this.handleInput(e)}
+                      placeholder="Cari di sini..."
+                      value={search}
+                    />
                   </View>
                   <View style={styles.wrapiconpoint}>
                     <Image
@@ -138,20 +157,11 @@ class BedroomOriginal extends Component {
                     maxDate="2096-06-01"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
-                    customStyles={{
-                      dateIcon: {
-                        position: 'absolute',
-                        left: 0,
-                        top: 4,
-                        marginLeft: 0,
-                      },
-                      dateInput: {
-                        marginLeft: 36,
-                      },
-                    }}
+                    showIcon={false}
                     onDateChange={date => {
                       this.setState({date: date});
                     }}
+                    customStyles={{dateInput: {borderWidth: 0}}}
                   />
                   {/* <Text style={styles.tinytext}>Check-in</Text>
                   <Text style={styles.text}>21 Januari 2020</Text> */}
@@ -181,7 +191,10 @@ class BedroomOriginal extends Component {
           </View>
           <View style={styles.wrapfooter}>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('ListBedroom')}>
+              onPress={async () => {
+                this.props.navigation.navigate('ListBedroom');
+                this.findHotel();
+              }}>
               <View style={styles.button}>
                 <Text style={styles.textbutton}>Cari Kamar Airy Rooms</Text>
               </View>
@@ -208,4 +221,11 @@ class BedroomOriginal extends Component {
   }
 }
 const Bedroom = withNavigation(BedroomOriginal);
-export default Bedroom;
+
+const mapStateToProps = state => {
+  return {
+    hotel: state.hotel,
+  };
+};
+
+export default connect(mapStateToProps)(Bedroom);

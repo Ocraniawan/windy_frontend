@@ -122,6 +122,17 @@ const styles = StyleSheet.create({
 });
 
 class SearchLocOriginal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      search: '',
+    };
+  }
+
+  handleInput = e => {
+    this.setState({search: e});
+  };
   render() {
     return (
       <View style={styles.root}>
@@ -152,6 +163,7 @@ class SearchLocOriginal extends Component {
               <View>
                 <Item regular style={styles.search}>
                   <Input
+                    onChange={e => this.handleInput(e)}
                     placeholder="Ketik Region, Landmark, atau Nama Airy Rooms"
                     style={styles.input}
                   />

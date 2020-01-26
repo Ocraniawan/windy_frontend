@@ -1,6 +1,9 @@
 import {combineReducers} from 'redux';
 
-// import itemid from './Item';
+import hotel from './Hotel';
+import detailhotel from './Detailhotel';
+import login from './Login';
+import Register from './Register';
 // import detailriview from './Detailriviews';
 // import detailrestaurant from './Detailrestaurant';
 // import menurestaurant from './Menurestaurant';
@@ -10,14 +13,17 @@ import {combineReducers} from 'redux';
 // import login from './Login';
 
 const appReducer = combineReducers({
-//   itemid,
-//   restaurant,
-//   popularitem,
-//   categories,
-//   detailriview,
-//   detailrestaurant,
-//   menurestaurant,
-//   login,
+  hotel,
+  detailhotel,
+  login,
+  Register,
+  //   restaurant,
+  //   popularitem,
+  //   categories,
+  //   detailriview,
+  //   detailrestaurant,
+  //   menurestaurant,
+  //   login,
 });
 
 export default appReducer;

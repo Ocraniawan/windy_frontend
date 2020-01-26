@@ -3,10 +3,9 @@ import axios from 'axios';
 import {APP_URL} from '../../config/config';
 
 const url = APP_URL.concat('hotel');
-
-export const gethotel = search => {
+export const detailHotel = id => {
   return {
-    type: 'GET_HOTEL',
-    payload: axios.get(`${url}?search[address]=${search}`),
+    type: 'GET_DETAIL_HOTEL',
+    payload: axios.get(`${url}/${id}`),
   };
 };

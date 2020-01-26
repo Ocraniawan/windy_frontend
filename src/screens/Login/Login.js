@@ -10,6 +10,9 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {Form, Item, Input, Label} from 'native-base';
 import {withNavigation} from 'react-navigation';
+import {postLogin} from '../../redux/action/Login';
+import {connect} from 'react-redux';
+// import AwesomeAlert from 'react-native-awesome-alerts';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -92,6 +95,45 @@ const styles = StyleSheet.create({
 });
 
 class LoginOriginal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      showAlert: false,
+    };
+  }
+
+  login = async () => {
+    const {username, password} = this.state;
+    await this.props.dispatch(
+      postLogin({
+        username,
+        password,
+      }),
+    );
+    this.cekAuth();
+  };
+
+  cekAuth = () => {
+    if (this.props.login.data.succes) {
+      // this.setState({showAlert: true});
+      alert('Login success');
+      this.props.navigation.navigate('Cari');
+    } else {
+      alert('Login failed');
+      // this.setState({showAlert: true});
+    }
+  };
+
+  handleUser = username => {
+    this.setState({username});
+  };
+
+  handlePass = password => {
+    this.setState({password});
+  };
+
   render() {
     return (
       <View style={styles.root}>
@@ -124,18 +166,17 @@ class LoginOriginal extends Component {
           <View style={styles.wrapinput}>
             <Form>
               <Item floatingLabel>
-                <Label style={styles.lableinput}>Email</Label>
-                <Input />
+                <Label style={styles.lableinput}>Email/Username</Label>
+                <Input onChangeText={e => this.handleUser(e)} />
               </Item>
               <Item floatingLabel>
                 <Label style={styles.lableinput}>Password</Label>
-                <Input />
+                <Input secureTextEntry onChangeText={e => this.handlePass(e)} />
               </Item>
             </Form>
           </View>
           <View style={styles.wrapbutton}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Cari')}>
+            <TouchableOpacity onPress={this.login}>
               <View style={styles.buttonlogin}>
                 <Text style={styles.textbutton}>MASUK</Text>
               </View>
@@ -161,4 +202,10 @@ class LoginOriginal extends Component {
   }
 }
 const Login = withNavigation(LoginOriginal);
-export default Login;
+const mapStateToProps = state => {
+  return {
+    login: state.login,
+  };
+};
+
+export default connect(mapStateToProps)(Login);

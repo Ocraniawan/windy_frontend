@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {withNavigation} from 'react-navigation';
+import {connect} from 'react-redux';
+import {detailHotel} from '../../redux/action/Detailhotel';
+import {Spinner} from 'native-base';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#F3F3F3', position: 'relative'},
@@ -23,6 +26,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  wrappoint: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   iconheader: {height: 28, width: 28},
   iconheadera: {height: 20, width: 20},
@@ -363,12 +371,23 @@ class BedroomDetailOriginal extends Component {
     super(props);
 
     this.state = {
-      price: '144810',
+      price: '',
       nights: '',
       isSelected: false,
       total: '0',
     };
   }
+
+  componentDidMount() {
+    const id = this.props.navigation.getParam('id_hotel');
+    this.getDetailHotel(id);
+  }
+
+  getDetailHotel = async id => {
+    await this.props.dispatch(detailHotel(id));
+    // console.log(this.props.detailhotel.data.data.name);
+    // this.setState({price:this.props.detailhotel.data.rooms})
+  };
 
   handleSelect = () => {
     this.setState({
@@ -402,10 +421,12 @@ class BedroomDetailOriginal extends Component {
     return (
       <View style={styles.root}>
         <View style={styles.header}>
+          {/* <TouchableOpacity onPress={this.props.navigation.goBack()}> */}
           <Image
             source={require('../../assets/chevron-left.png')}
             style={styles.iconheader}
           />
+          {/* </TouchableOpacity> */}
           <Image
             source={require('../../assets/share-2.png')}
             style={styles.iconheadera}
@@ -419,41 +440,52 @@ class BedroomDetailOriginal extends Component {
             />
           </View>
           {/* DETAIL ROOMS */}
-          <View style={styles.wrapdetail}>
-            <View style={styles.wrapdetaila}>
-              <View style={styles.wrapitem}>
-                <View style={styles.wrapiconmap}>
-                  <Image
-                    source={require('../../assets/mapping.jpeg')}
-                    style={styles.iconmap}
-                  />
+          {!this.props.detailhotel.isLoading &&
+            this.props.detailhotel.data.data && (
+              <View style={styles.wrapdetail}>
+                <View style={styles.wrapdetaila}>
+                  <View style={styles.wrapitem}>
+                    <View style={styles.wrapiconmap}>
+                      <Image
+                        source={require('../../assets/mapping.jpeg')}
+                        style={styles.iconmap}
+                      />
+                    </View>
+                    <View style={styles.wraptextdetail}>
+                      <Text style={styles.texttinyinfo}>AIRY ROOMS</Text>
+                      <Text style={styles.texttitle}>
+                        {this.props.detailhotel.data.data.name}
+                      </Text>
+                      <Text style={styles.textloc}>
+                        {this.props.detailhotel.data.data.address}
+                      </Text>
+                    </View>
+                  </View>
                 </View>
-                <View style={styles.wraptextdetail}>
-                  <Text style={styles.texttinyinfo}>AIRY ROOMS</Text>
-                  <Text style={styles.texttitle}>
-                    Airy Eco RE Martadinata 21 Bogor
-                  </Text>
-                  <Text style={styles.textloc}>
-                    Jl. Re. Martadinata No.21, RT.6/RW.6, Kb. Pedes, Tanah
-                    Sereal, Kota Bogor, Jawa Barat 16124, Indonesia
-                  </Text>
-                </View>
-              </View>
-            </View>
 
-            <View style={styles.wraptitlecard}>
-              <Text style={styles.texttitlecard}>STANDAR KENYAMANAN</Text>
-              <Text style={styles.texttinyblue}>Lihat Semua</Text>
-            </View>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.wrapfacility}>
-                <View style={styles.wrapiconfacility}>
-                  <Icon name="router-wireless" size={28} color={'#1DA9DE'} />
-                  <Text style={styles.textfacility}>WIFI Gratis</Text>
+                <View style={styles.wraptitlecard}>
+                  <Text style={styles.texttitlecard}>STANDAR KENYAMANAN</Text>
+                  <Text style={styles.texttinyblue}>Lihat Semua</Text>
                 </View>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                  <View style={styles.wrapfacility}>
+                    <View style={styles.wrapiconfacility}>
+                      <Icon
+                        name="router-wireless"
+                        size={28}
+                        color={'#1DA9DE'}
+                      />
+                      <Text style={styles.textfacility}>WIFI Gratis</Text>
+                    </View>
+                  </View>
+                </ScrollView>
               </View>
-            </ScrollView>
-          </View>
+            )}
+          {this.props.detailhotel.isLoading && (
+            <View style={styles.wrappoint}>
+              <Spinner color="blue" />
+            </View>
+          )}
 
           {/* RIVIEWS */}
           <View style={styles.wrapriview}>
@@ -512,27 +544,30 @@ class BedroomDetailOriginal extends Component {
               </View>
             </View>
             {!isSelected && nights >= 0 ? (
-              <View style={styles.wrapsuggesroom}>
-                <View style={styles.wrapleftitem}>
-                  <Text style={styles.texttinybluea}>
-                    Airy Rooms Standard Double
-                  </Text>
-                  <Text style={styles.textinfoa}>2 Tamu / Kamar</Text>
-                  <Text style={styles.textinfoa}>Tidak Termasuk Sarapan</Text>
-                  <Text style={styles.textinfoa}>Double</Text>
-                  <Text style={styles.textinfoa}>Tidak dapat dibatalkan</Text>
+              // this.props.detailhotel.data
+              !this.props.detailhotel.isLoading &&
+              this.props.detailhotel.data.rooms &&
+              this.props.detailhotel.data.rooms.map((v, i) => (
+                <View key={i} style={styles.wrapsuggesroom}>
+                  <View style={styles.wrapleftitem}>
+                    <Text style={styles.texttinybluea}>{v.room_type}</Text>
+                    <Text style={styles.textinfoa}>2 Tamu / Kamar</Text>
+                    <Text style={styles.textinfoa}>Tidak Termasuk Sarapan</Text>
+                    <Text style={styles.textinfoa}>Double</Text>
+                    <Text style={styles.textinfoa}>Tidak dapat dibatalkan</Text>
+                  </View>
+                  <View style={styles.wraprightitem}>
+                    <Text style={styles.texttiny}>Harga Per Malam</Text>
+                    <Text style={styles.textlinetr}>Rp 160.900</Text>
+                    <Text style={styles.textprice}>Rp {v.price}</Text>
+                    <TouchableOpacity onPress={this.handleSelect}>
+                      <View style={styles.button}>
+                        <Text style={styles.textbutton}>Pilih</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                <View style={styles.wraprightitem}>
-                  <Text style={styles.texttiny}>Harga Per Malam</Text>
-                  <Text style={styles.textlinetr}>Rp 160.900</Text>
-                  <Text style={styles.textprice}>Rp {price}</Text>
-                  <TouchableOpacity onPress={this.handleSelect}>
-                    <View style={styles.button}>
-                      <Text style={styles.textbutton}>Pilih</Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </View>
+              ))
             ) : (
               <View style={styles.wrapsuggesroom1}>
                 <View style={styles.wrapleftitem}>
@@ -578,12 +613,14 @@ class BedroomDetailOriginal extends Component {
             <Text style={styles.texttiny1}>(0 malam, 0 kamar)</Text>
           </View>
           <View style={styles.wrapbutton1}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('OrderProcess')}>
-              <View style={styles.button1}>
-                <Text style={styles.textbuttonpilih}>Lanjutkan</Text>
-              </View>
-            </TouchableOpacity>
+            {this.props.login.data.auth && (
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('OrderProcess')}>
+                <View style={styles.button1}>
+                  <Text style={styles.textbuttonpilih}>Lanjutkan</Text>
+                </View>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>
@@ -592,4 +629,11 @@ class BedroomDetailOriginal extends Component {
 }
 
 const BedroomDetail = withNavigation(BedroomDetailOriginal);
-export default BedroomDetail;
+const mapStateToProps = state => {
+  return {
+    detailhotel: state.detailhotel,
+    login: state.login,
+  };
+};
+
+export default connect(mapStateToProps)(BedroomDetail);

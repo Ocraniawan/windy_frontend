@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {Text, View, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Right} from 'native-base';
+import {Right, Spinner} from 'native-base';
 import {withNavigation} from 'react-navigation';
 import {Tab, Tabs, Container} from 'native-base';
+import {connect} from 'react-redux';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#ECF0F1'},
@@ -122,7 +123,11 @@ const styles = StyleSheet.create({
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
   },
-  wrappoint: {flexDirection: 'row'},
+  wrappoint: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
   image: {height: 85, width: 92, marginRight: 10},
   listtext: {flexDirection: 'row'},
   nameairy: {
@@ -130,12 +135,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     paddingVertical: 5,
     color: '#676767',
+    width: 150,
   },
   textloc: {
     fontFamily: 'MuseoSansRounded500',
     fontSize: 10,
     paddingVertical: 3,
     color: '#879293',
+    width: 250,
   },
   wraptextulasan: {flexDirection: 'row', marginTop: 2},
   btnrating: {
@@ -199,6 +206,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 45,
     position: 'relative',
+    backgroundColor: '#000',
   },
   buttonlanding: {
     height: 47,
@@ -244,6 +252,7 @@ const styles = StyleSheet.create({
   tabs: {
     borderBottomWidth: 2,
     borderBottomColor: '#42a1ef',
+    marginBottom: 50,
   },
   tabstyle: {backgroundColor: '#ebebeb'},
   textstyle: {
@@ -315,103 +324,121 @@ class ListBedroomOriginal extends Component {
               </Right>
             </View>
           </LinearGradient>
-          <ScrollView>
-            <View style={styles.cardpromo}>
-              <Image
-                source={require('../../assets/cardpromo.jpeg')}
-                style={styles.imgcardpromo}
-              />
-            </View>
+          <View style={styles.cardpromo}>
+            <Image
+              source={require('../../assets/cardpromo.jpeg')}
+              style={styles.imgcardpromo}
+            />
+          </View>
 
-            {/* CONTENT */}
+          {/* CONTENT */}
 
-            <Container>
-              <Tabs tabBarUnderlineStyle={styles.tabs}>
-                <Tab
-                  heading="HARGA TERENDAH"
-                  tabStyle={styles.tabstyle}
-                  textStyle={styles.textstyle}
-                  activeTabStyle={styles.activetabstyle}
-                  activeTextStyle={styles.activetextstyle}>
-                  <View style={styles.content}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        this.props.navigation.navigate('BedroomDetail')
-                      }>
-                      <View style={styles.carditem}>
-                        <View style={styles.wrappoint}>
-                          <Image
-                            source={require('../../assets/kamar.jpeg')}
-                            style={styles.image}
-                          />
-                          <View styles={styles.listtext}>
-                            <Text style={styles.nameairy}>
-                              Airy Baranangsiang Riau 39 Bogor
-                            </Text>
-                            <Text style={styles.textloc}>Bogor Timur</Text>
-                            <View style={styles.wraptextulasan}>
-                              <View style={styles.btnrating}>
-                                <Text style={styles.textrating}>8.3/10</Text>
+          <Container>
+            <Tabs tabBarUnderlineStyle={styles.tabs}>
+              <Tab
+                heading="HARGA TERENDAH"
+                tabStyle={styles.tabstyle}
+                textStyle={styles.textstyle}
+                activeTabStyle={styles.activetabstyle}
+                activeTextStyle={styles.activetextstyle}>
+                <View style={styles.content}>
+                  <ScrollView>
+                    {/* LIST HOTEL */}
+                    {!this.props.hotel.isLoading &&
+                      this.props.hotel.data.map((v, i) => (
+                        <TouchableOpacity
+                          key={i}
+                          onPress={() => {
+                            this.props.navigation.navigate('BedroomDetail', {
+                              id_hotel: v.id_hotel,
+                            });
+                          }}>
+                          <View style={styles.carditem}>
+                            <View style={styles.wrappoint}>
+                              <Image
+                                source={require('../../assets/kamar.jpeg')}
+                                style={styles.image}
+                              />
+                              <View styles={styles.listtext}>
+                                <Text style={styles.nameairy}>{v.name}</Text>
+                                <Text style={styles.textloc}>{v.address}</Text>
+                                <View style={styles.wraptextulasan}>
+                                  {/* <View style={styles.btnrating}>
+                                    <Text style={styles.textrating}>
+                                      8.3/10
+                                    </Text>
+                                  </View> */}
+                                  <Text style={styles.textulasan}>
+                                    (635 ulasan)
+                                  </Text>
+                                </View>
+                                {/* <Text style={styles.texttinyprice}>
+                                  Harga mulai dari {this.rupiah('435900')}
+                                </Text> */}
+                                <Text style={styles.textprice}>
+                                  {this.rupiah(v.price)}
+                                </Text>
                               </View>
-                              <Text style={styles.textulasan}>
-                                (635 ulasan)
-                              </Text>
                             </View>
-                            <Text style={styles.texttinyprice}>
-                              Harga mulai dari {this.rupiah('435900')}
-                            </Text>
-                            <Text style={styles.textprice}>
-                              {this.rupiah('230000')}
-                            </Text>
+                          </View>
+                        </TouchableOpacity>
+                      ))}
+                    {this.props.hotel.isLoading && (
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.props.navigation.navigate('BedroomDetail')
+                        }>
+                        <View style={styles.carditem}>
+                          <View style={styles.wrappoint}>
+                            <Spinner color="blue" />
                           </View>
                         </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </Tab>
-                <Tab
-                  heading="HARGA TERBAIK"
-                  tabStyle={styles.tabstyle}
-                  textStyle={styles.textstyle}
-                  activeTabStyle={styles.activetabstyle}
-                  activeTextStyle={styles.activetextstyle}>
-                  <View style={styles.content}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        this.props.navigation.navigate('BedroomDetail')
-                      }>
-                      <View style={styles.carditem}>
-                        <View style={styles.wrappoint}>
-                          <Image
-                            source={require('../../assets/kamar.jpeg')}
-                            style={styles.image}
-                          />
-                          <View styles={styles.listtext}>
-                            <Text style={styles.nameairy}>
-                              Airy Baranangsiang Riau 39 Bogor
-                            </Text>
-                            <Text style={styles.textloc}>Bogor Timur</Text>
-                            <View style={styles.wraptextulasan}>
-                              <View style={styles.btnrating}>
-                                <Text style={styles.textrating}>8.3/10</Text>
-                              </View>
-                              <Text style={styles.textulasan}>
-                                (635 ulasan)
-                              </Text>
+                      </TouchableOpacity>
+                    )}
+                    {/* END LIST HOTEL */}
+                  </ScrollView>
+                </View>
+              </Tab>
+              <Tab
+                heading="HARGA TERBAIK"
+                tabStyle={styles.tabstyle}
+                textStyle={styles.textstyle}
+                activeTabStyle={styles.activetabstyle}
+                activeTextStyle={styles.activetextstyle}>
+                <View style={styles.content}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.props.navigation.navigate('BedroomDetail')
+                    }>
+                    <View style={styles.carditem}>
+                      <View style={styles.wrappoint}>
+                        <Image
+                          source={require('../../assets/kamar.jpeg')}
+                          style={styles.image}
+                        />
+                        <View styles={styles.listtext}>
+                          <Text style={styles.nameairy}>
+                            Airy Baranangsiang Riau 39 Bogor
+                          </Text>
+                          <Text style={styles.textloc}>Bogor Timur</Text>
+                          <View style={styles.wraptextulasan}>
+                            <View style={styles.btnrating}>
+                              <Text style={styles.textrating}>8.3/10</Text>
                             </View>
-                            <Text style={styles.texttinyprice}>
-                              Harga mulai dari Rp. 435.900
-                            </Text>
-                            <Text style={styles.textprice}>Rp 235.386</Text>
+                            <Text style={styles.textulasan}>(635 ulasan)</Text>
                           </View>
+                          <Text style={styles.texttinyprice}>
+                            Harga mulai dari Rp. 435.900
+                          </Text>
+                          <Text style={styles.textprice}>Rp 235.386</Text>
                         </View>
                       </View>
-                    </TouchableOpacity>
-                  </View>
-                </Tab>
-              </Tabs>
-            </Container>
-          </ScrollView>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </Tab>
+            </Tabs>
+          </Container>
         </View>
 
         <View style={styles.wrapbuttonlanding}>
@@ -443,4 +470,10 @@ class ListBedroomOriginal extends Component {
 }
 
 const ListBedroom = withNavigation(ListBedroomOriginal);
-export default ListBedroom;
+const mapStateToProps = state => {
+  return {
+    hotel: state.hotel,
+  };
+};
+
+export default connect(mapStateToProps)(ListBedroom);
