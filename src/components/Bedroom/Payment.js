@@ -9,9 +9,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Form, Item, Input, Label} from 'native-base';
 import {withNavigation} from 'react-navigation';
-import {Dropdown} from 'react-native-material-dropdown';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#ebebeb'},
@@ -135,9 +133,48 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   flex: {flex: 1},
+  wrapjumlah: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    padding: 15,
+    marginTop: 15,
+  },
+  wraplogo1: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    marginTop: 20,
+    marginHorizontal: 20,
+    padding: 20,
+    borderRadius: 5,
+    elevation: 2,
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  colorblue: {color: '#40C2F2'},
+  logo: {width: 90, height: 60},
 });
 
 class AccountOriginal extends Component {
+  rupiah(angka) {
+    var rupiah = '';
+    var angkarev = angka
+      .toString()
+      .split('')
+      .reverse()
+      .join('');
+    for (var i = 0; i < angkarev.length; i++) {
+      if (i % 3 === 0) {
+        rupiah += angkarev.substr(i, 3) + '.';
+      }
+    }
+    return (
+      'Rp.' +
+      rupiah
+        .split('', rupiah.length - 1)
+        .reverse()
+        .join('')
+    );
+  }
   render() {
     return (
       <View style={styles.root}>
@@ -170,38 +207,21 @@ class AccountOriginal extends Component {
           </View>
         </LinearGradient>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View
-            style={{
-              backgroundColor: '#fff',
-              flexDirection: 'row',
-              padding: 15,
-              marginTop: 15,
-            }}>
-            <View style={{flex: 1}}>
+          <View style={styles.wrapjumlah}>
+            <View style={styles.flex}>
               <Text>JUMLAH YANG AKAN DI BAYAR</Text>
-              <Text>Rp 822000</Text>
+              <Text>{this.rupiah('822000')}</Text>
             </View>
             <TouchableOpacity>
-              <Text style={{color: '#40C2F2'}}>PESANAN</Text>
+              <Text style={styles.colorblue}>PESANAN</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity>
-            <View
-              style={{
-                backgroundColor: '#fff',
-                flexDirection: 'row',
-                marginTop: 20,
-                marginHorizontal: 20,
-                padding: 20,
-                borderRadius: 5,
-                elevation: 2,
-                marginBottom: 20,
-                alignItems: 'center',
-              }}>
-              <Text style={{flex: 1}}>Airy Balance</Text>
+            <View style={styles.wraplogo1}>
+              <Text style={styles.flex}>Airy Balance</Text>
               <ImageBackground
                 source={require('../../assets/logoairy.png')}
-                style={{width: 90, height: 60}}
+                style={styles.logo}
               />
             </View>
           </TouchableOpacity>

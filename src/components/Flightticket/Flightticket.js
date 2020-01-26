@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Switch} from 'native-base';
 import {withNavigation} from 'react-navigation';
+import DatePicker from 'react-native-datepicker';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
   },
   wrapiconlike: {height: 300, backgroundColor: '#fff'},
   iconlike: {height: 160, width: '100%'},
+  date: {width: '80%'},
 });
 
 class FlightticketOriginal extends Component {
@@ -112,6 +114,7 @@ class FlightticketOriginal extends Component {
 
     this.state = {
       isToggle: false,
+      date: new Date(),
     };
   }
 
@@ -173,8 +176,33 @@ class FlightticketOriginal extends Component {
                 </View>
                 <View style={styles.wrappointer}>
                   <View style={styles.wraptext1}>
-                    <Text style={styles.tinytext}>Tanggal Berangkat</Text>
-                    <Text style={styles.text}>22 Januari 2020</Text>
+                    <DatePicker
+                      style={styles.date}
+                      date={this.state.date}
+                      mode="date"
+                      placeholder="select date"
+                      format="YYYY-MM-DD"
+                      minDate={new Date()}
+                      maxDate="2096-06-01"
+                      confirmBtnText="Confirm"
+                      cancelBtnText="Cancel"
+                      customStyles={{
+                        dateIcon: {
+                          position: 'absolute',
+                          left: 0,
+                          top: 4,
+                          marginLeft: 0,
+                        },
+                        dateInput: {
+                          marginLeft: 36,
+                        },
+                      }}
+                      onDateChange={date => {
+                        this.setState({date: date});
+                      }}
+                    />
+                    {/* <Text style={styles.tinytext}>Tanggal Berangkat</Text>
+                    <Text style={styles.text}>22 Januari 2020</Text> */}
                   </View>
                   <View style={styles.wrapiconpoint}>
                     <Text style={styles.tinytexta}>Pulang-Pergi?</Text>
@@ -198,8 +226,33 @@ class FlightticketOriginal extends Component {
                   </View>
                   <View style={styles.wrappointer}>
                     <View style={styles.wraptext1}>
-                      <Text style={styles.tinytext}>Tanggal Pulang</Text>
-                      <Text style={styles.text}>24 Januari 2020</Text>
+                      <DatePicker
+                        style={styles.date}
+                        date={this.state.date}
+                        mode="date"
+                        placeholder="select date"
+                        format="YYYY-MM-DD"
+                        minDate={new Date()}
+                        maxDate="2096-06-01"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                          dateIcon: {
+                            position: 'absolute',
+                            left: 0,
+                            top: 4,
+                            marginLeft: 0,
+                          },
+                          dateInput: {
+                            marginLeft: 36,
+                          },
+                        }}
+                        onDateChange={date => {
+                          this.setState({date: date});
+                        }}
+                      />
+                      {/* <Text style={styles.tinytext}>Tanggal Pulang</Text>
+                      <Text style={styles.text}>24 Januari 2020</Text> */}
                     </View>
                   </View>
                 </View>

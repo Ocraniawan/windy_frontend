@@ -260,6 +260,26 @@ const styles = StyleSheet.create({
 });
 
 class ListBedroomOriginal extends Component {
+  rupiah(angka) {
+    var rupiah = '';
+    var angkarev = angka
+      .toString()
+      .split('')
+      .reverse()
+      .join('');
+    for (var i = 0; i < angkarev.length; i++) {
+      if (i % 3 === 0) {
+        rupiah += angkarev.substr(i, 3) + '.';
+      }
+    }
+    return (
+      'Rp.' +
+      rupiah
+        .split('', rupiah.length - 1)
+        .reverse()
+        .join('')
+    );
+  }
   render() {
     return (
       <>
@@ -338,9 +358,11 @@ class ListBedroomOriginal extends Component {
                               </Text>
                             </View>
                             <Text style={styles.texttinyprice}>
-                              Harga mulai dari Rp. 435.900
+                              Harga mulai dari {this.rupiah('435900')}
                             </Text>
-                            <Text style={styles.textprice}>Rp 235.386</Text>
+                            <Text style={styles.textprice}>
+                              {this.rupiah('230000')}
+                            </Text>
                           </View>
                         </View>
                       </View>
