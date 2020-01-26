@@ -4,19 +4,29 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-// import Splash from '../screens/Splash';
+import Splashscreen from '../screens/Splashscreen';
 import Home from '../screens/Home';
 import SearchLoc from '../components/Bedroom/SearchLoc';
 import ListDurasi from '../components/Bedroom/ListDurasi';
 import BedroomDetail from '../components/Bedroom/BedroomDetail';
 import ListBedroom from '../components/Bedroom/ListBedroom';
 import Datepicker from '../components/Bedroom/Datepicker';
+import OrderProcess from '../components/Bedroom/OrderProcess';
+import Guestdata from '../components/Bedroom/Guestdata';
+import Payment from '../components/Bedroom/Payment';
+
+import Destination from '../components/Flightticket/Destination';
+import Hometown from '../components/Flightticket/Hometown';
+import Passenger from '../components/Flightticket/Passenger';
+import ListFlight from '../components/Flightticket/ListFlight';
+import Orderflight from '../components/Flightticket/Orderflight';
 
 import Order from '../screens/Order';
 import ListReceipt from '../components/Order/ListReceipt';
 import OrderDetail from '../components/Order/OrderDetail';
 
 import Menu from '../screens/Menu';
+import Balance from '../components/Balance/Balance';
 import Account from '../components/Account/Account';
 import ChangePass from '../components/Account/ChangePass';
 import MainLogin from '../screens/Login/MainLogin';
@@ -24,19 +34,19 @@ import Login from '../screens/Login/Login';
 import Register from '../screens/Login/Register';
 import ForgotPass from '../screens/Login/ForgotPass';
 
-// const SplashNav = createStackNavigator(
-//   {
-//     Splash: {
-//       screen: Splash,
-//       navigationOptions: {
-//         headerShown: false,
-//       },
-//     },
-//   },
-//   {
-//     initialRouteName: 'Splash',
-//   },
-// );
+const SplashscreenNav = createStackNavigator(
+  {
+    Splashscreen: {
+      screen: Splashscreen,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+  },
+  {
+    initialRouteName: 'Splashscreen',
+  },
+);
 
 const AuthNav = createStackNavigator(
   {
@@ -108,6 +118,54 @@ const HomeNav = createStackNavigator(
         headerShown: false,
       },
     },
+    OrderProcess: {
+      screen: OrderProcess,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Guestdata: {
+      screen: Guestdata,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Payment: {
+      screen: Payment,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Destination: {
+      screen: Destination,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Hometown: {
+      screen: Hometown,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Passenger: {
+      screen: Passenger,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    ListFlight: {
+      screen: ListFlight,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Orderflight: {
+      screen: Orderflight,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
   },
   {
     initialRouteName: 'Cari',
@@ -166,6 +224,12 @@ const MenuNav = createStackNavigator(
   {
     Menu: {
       screen: Menu,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Balance: {
+      screen: Balance,
       navigationOptions: {
         headerShown: false,
       },
@@ -273,9 +337,9 @@ const BottomNav = createBottomTabNavigator(
 );
 
 const SwitchNav = createSwitchNavigator(
-  {AuthNav, BottomNav},
+  {SplashscreenNav, AuthNav, BottomNav},
   {
-    initialRouteName: 'BottomNav',
+    initialRouteName: 'SplashscreenNav',
   },
 );
 

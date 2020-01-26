@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Text, View, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {ScrollView} from 'react-native-gesture-handler';
 import {Right} from 'native-base';
 import {withNavigation} from 'react-navigation';
 import {Tab, Tabs, Container} from 'native-base';
+import CheapestFlights from './CheapestFlights';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#ECF0F1'},
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   headera: {
     flexDirection: 'row',
     height: 48,
-    paddingLeft: 0,
+    paddingLeft: 60,
     alignItems: 'center',
   },
   wraparrowico: {
@@ -97,12 +97,10 @@ const styles = StyleSheet.create({
   },
   btncat: {
     height: 35,
-    borderWidth: 1,
     borderRadius: 50,
     padding: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#fff',
     marginHorizontal: 5,
   },
   textcat: {fontFamily: 'MuseoSansRounded500', color: '#fff', fontSize: 14},
@@ -115,13 +113,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   imgcardpromo: {height: 70, width: '100%', borderRadius: 4},
-  carditem: {
-    backgroundColor: '#fff',
-    marginTop: 10,
-    padding: 15,
-    borderBottomColor: '#eee',
-    borderBottomWidth: 1,
-  },
+  carditem: {backgroundColor: '#fff', marginTop: 10, padding: 15},
   wrappoint: {flexDirection: 'row'},
   image: {height: 85, width: 92, marginRight: 10},
   listtext: {flexDirection: 'row'},
@@ -203,7 +195,7 @@ const styles = StyleSheet.create({
   buttonlanding: {
     height: 47,
     width: '100%',
-    backgroundColor: '#ECF0F1',
+    backgroundColor: '#fff',
     elevation: 1,
     justifyContent: 'center',
     borderRadius: 20,
@@ -259,7 +251,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class ListBedroomOriginal extends Component {
+class ListFlightOriginal extends Component {
   render() {
     return (
       <>
@@ -278,10 +270,8 @@ class ListBedroomOriginal extends Component {
                 </View>
               </TouchableOpacity>
               <View>
-                <Text style={styles.textheader}>Bogor</Text>
-                <Text style={styles.texttinya}>
-                  Check-in: Rabu, 22 Jan 2020, 1 Malam
-                </Text>
+                <Text style={styles.textheader}>Penerbangan Pergi</Text>
+                <Text style={styles.texttinya}>22 Jan 2020, 1 Orang</Text>
               </View>
               <Right>
                 <TouchableOpacity>
@@ -295,101 +285,50 @@ class ListBedroomOriginal extends Component {
               </Right>
             </View>
           </LinearGradient>
-          <ScrollView>
-            <View style={styles.cardpromo}>
-              <Image
-                source={require('../../assets/cardpromo.jpeg')}
-                style={styles.imgcardpromo}
-              />
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 1.5, y: 0}}
+            colors={['#007EEF', '#40C2F2']}>
+            <View style={styles.headera}>
+              <View style={styles.btncat}>
+                <Text style={styles.textcat}>JKTA</Text>
+              </View>
+              <View style={styles.btncat}>
+                <Text style={styles.textcat}>--------></Text>
+              </View>
+              <View style={styles.btncat}>
+                <Text style={styles.textcat}>JOG</Text>
+              </View>
             </View>
-
-            {/* CONTENT */}
-
-            <Container>
-              <Tabs tabBarUnderlineStyle={styles.tabs}>
-                <Tab
-                  heading="HARGA TERENDAH"
-                  tabStyle={styles.tabstyle}
-                  textStyle={styles.textstyle}
-                  activeTabStyle={styles.activetabstyle}
-                  activeTextStyle={styles.activetextstyle}>
-                  <View style={styles.content}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        this.props.navigation.navigate('BedroomDetail')
-                      }>
-                      <View style={styles.carditem}>
-                        <View style={styles.wrappoint}>
-                          <Image
-                            source={require('../../assets/kamar.jpeg')}
-                            style={styles.image}
-                          />
-                          <View styles={styles.listtext}>
-                            <Text style={styles.nameairy}>
-                              Airy Baranangsiang Riau 39 Bogor
-                            </Text>
-                            <Text style={styles.textloc}>Bogor Timur</Text>
-                            <View style={styles.wraptextulasan}>
-                              <View style={styles.btnrating}>
-                                <Text style={styles.textrating}>8.3/10</Text>
-                              </View>
-                              <Text style={styles.textulasan}>
-                                (635 ulasan)
-                              </Text>
-                            </View>
-                            <Text style={styles.texttinyprice}>
-                              Harga mulai dari Rp. 435.900
-                            </Text>
-                            <Text style={styles.textprice}>Rp 235.386</Text>
-                          </View>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </Tab>
-                <Tab
-                  heading="HARGA TERBAIK"
-                  tabStyle={styles.tabstyle}
-                  textStyle={styles.textstyle}
-                  activeTabStyle={styles.activetabstyle}
-                  activeTextStyle={styles.activetextstyle}>
-                  <View style={styles.content}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        this.props.navigation.navigate('BedroomDetail')
-                      }>
-                      <View style={styles.carditem}>
-                        <View style={styles.wrappoint}>
-                          <Image
-                            source={require('../../assets/kamar.jpeg')}
-                            style={styles.image}
-                          />
-                          <View styles={styles.listtext}>
-                            <Text style={styles.nameairy}>
-                              Airy Baranangsiang Riau 39 Bogor
-                            </Text>
-                            <Text style={styles.textloc}>Bogor Timur</Text>
-                            <View style={styles.wraptextulasan}>
-                              <View style={styles.btnrating}>
-                                <Text style={styles.textrating}>8.3/10</Text>
-                              </View>
-                              <Text style={styles.textulasan}>
-                                (635 ulasan)
-                              </Text>
-                            </View>
-                            <Text style={styles.texttinyprice}>
-                              Harga mulai dari Rp. 435.900
-                            </Text>
-                            <Text style={styles.textprice}>Rp 235.386</Text>
-                          </View>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </Tab>
-              </Tabs>
-            </Container>
-          </ScrollView>
+          </LinearGradient>
+          <Container>
+            <Tabs tabBarUnderlineStyle={styles.tabs}>
+              <Tab
+                heading="TERMURAH"
+                tabStyle={styles.tabstyle}
+                textStyle={styles.textstyle}
+                activeTabStyle={styles.activetabstyle}
+                activeTextStyle={styles.activetextstyle}>
+                <CheapestFlights />
+              </Tab>
+              <Tab
+                heading="PALING AWAL"
+                tabStyle={styles.tabstyle}
+                textStyle={styles.textstyle}
+                activeTabStyle={styles.activetabstyle}
+                activeTextStyle={styles.activetextstyle}>
+                <CheapestFlights />
+              </Tab>
+              <Tab
+                heading="PALING AKHIR"
+                tabStyle={styles.tabstyle}
+                textStyle={styles.textstyle}
+                activeTabStyle={styles.activetabstyle}
+                activeTextStyle={styles.activetextstyle}>
+                <CheapestFlights />
+              </Tab>
+            </Tabs>
+          </Container>
         </View>
 
         <View style={styles.wrapbuttonlanding}>
@@ -405,12 +344,7 @@ class ListBedroomOriginal extends Component {
             </TouchableOpacity>
             <TouchableOpacity>
               <View style={styles.wrapiconmap}>
-                <Image
-                  source={require('../../assets/map-pin.png')}
-                  style={styles.iconmap}
-                />
-
-                <Text style={styles.textbuttonlanding}>Map View</Text>
+                <Text style={styles.textbuttonlanding}>Ubah Tanggal</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -420,5 +354,5 @@ class ListBedroomOriginal extends Component {
   }
 }
 
-const ListBedroom = withNavigation(ListBedroomOriginal);
-export default ListBedroom;
+const ListFlight = withNavigation(ListFlightOriginal);
+export default ListFlight;

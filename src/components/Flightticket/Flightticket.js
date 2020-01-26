@@ -8,6 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {Switch} from 'native-base';
+import {withNavigation} from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
   iconlike: {height: 160, width: '100%'},
 });
 
-class Flighticket extends Component {
+class FlightticketOriginal extends Component {
   constructor(props) {
     super(props);
 
@@ -124,7 +125,8 @@ class Flighticket extends Component {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.root}>
           <View style={styles.awrapper}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Hometown')}>
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
@@ -146,7 +148,8 @@ class Flighticket extends Component {
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Destination')}>
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
@@ -202,7 +205,8 @@ class Flighticket extends Component {
                 </View>
               </TouchableOpacity>
             )}
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Passenger')}>
               <View style={styles.wrapper}>
                 <View style={styles.wrapicon}>
                   <Image
@@ -218,7 +222,8 @@ class Flighticket extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.wrapfooter}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('ListFlight')}>
               <View style={styles.button}>
                 <Text style={styles.textbutton}>Cari Penerbangan</Text>
               </View>
@@ -244,4 +249,5 @@ class Flighticket extends Component {
     );
   }
 }
-export default Flighticket;
+const Flightticket = withNavigation(FlightticketOriginal);
+export default Flightticket;

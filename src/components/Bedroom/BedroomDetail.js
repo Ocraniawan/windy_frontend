@@ -578,7 +578,8 @@ class BedroomDetailOriginal extends Component {
             <Text style={styles.texttiny1}>(0 malam, 0 kamar)</Text>
           </View>
           <View style={styles.wrapbutton1}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('OrderProcess')}>
               <View style={styles.button1}>
                 <Text style={styles.textbuttonpilih}>Lanjutkan</Text>
               </View>

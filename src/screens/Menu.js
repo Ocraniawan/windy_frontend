@@ -223,7 +223,8 @@ class MenuOriginal extends Component {
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Balance')}>
               <View style={styles.wrapmenu}>
                 <View style={styles.wrapmenucomp}>
                   <View style={styles.wrapicon}>
