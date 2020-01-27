@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 46,
-    width: 345,
+    width: '100%',
+    marginRight: 20,
     borderRadius: 45,
     backgroundColor: '#FFCA00',
     alignItems: 'center',

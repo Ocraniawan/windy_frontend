@@ -4,6 +4,8 @@ import hotel from './Hotel';
 import detailhotel from './Detailhotel';
 import login from './Login';
 import Register from './Register';
+import guest from './Hotelguestinfo';
+import detailuser from './Detailhotel';
 // import detailriview from './Detailriviews';
 // import detailrestaurant from './Detailrestaurant';
 // import menurestaurant from './Menurestaurant';
@@ -17,6 +19,8 @@ const appReducer = combineReducers({
   detailhotel,
   login,
   Register,
+  guest,
+  detailuser,
   //   restaurant,
   //   popularitem,
   //   categories,

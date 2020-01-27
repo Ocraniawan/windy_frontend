@@ -5,7 +5,7 @@ import Router from './src/config/router';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import storage from './src/redux/store';
-
+console.disableYellowBox = true;
 const {store, persistor} = storage();
 
 class App extends Component {

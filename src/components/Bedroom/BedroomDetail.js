@@ -12,7 +12,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {withNavigation} from 'react-navigation';
 import {connect} from 'react-redux';
 import {detailHotel} from '../../redux/action/Detailhotel';
-import {Spinner} from 'native-base';
+import {Spinner, Input} from 'native-base';
+import DatePicker from 'react-native-datepicker';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#F3F3F3', position: 'relative'},
@@ -375,6 +376,9 @@ class BedroomDetailOriginal extends Component {
       nights: '',
       isSelected: false,
       total: '0',
+      room_type: '',
+      date: '',
+      duration: '',
     };
   }
 
@@ -385,22 +389,34 @@ class BedroomDetailOriginal extends Component {
 
   getDetailHotel = async id => {
     await this.props.dispatch(detailHotel(id));
-    // console.log(this.props.detailhotel.data.data.name);
-    // this.setState({price:this.props.detailhotel.data.rooms})
   };
 
-  handleSelect = () => {
+  handleSelect = (price, room_type) => {
     this.setState({
+      price,
+      room_type,
       isSelected: !this.state.isSelected,
       nights: Number(this.state.nights) + 1,
-      total: (Number(this.state.nights) + 1) * Number(this.state.price),
+      total:
+        (Number(this.state.nights) + 1) *
+        Number(price) *
+        Number(this.state.duration),
+    });
+  };
+
+  handleDuration = duration => {
+    this.setState({
+      duration,
     });
   };
 
   addNights = () => {
     this.setState({
       nights: Number(this.state.nights) + 1,
-      total: (Number(this.state.nights) + 1) * Number(this.state.price),
+      total:
+        (Number(this.state.nights) + 1) *
+        Number(this.state.price) *
+        Number(this.state.duration),
     });
   };
 
@@ -408,7 +424,10 @@ class BedroomDetailOriginal extends Component {
     if (Number(this.state.nights) >= 1) {
       this.setState({
         nights: Number(this.state.nights) - 1,
-        total: (Number(this.state.nights) - 1) * Number(this.state.price),
+        total:
+          (Number(this.state.nights) - 1) *
+          Number(this.state.price) *
+          Number(this.state.duration),
       });
     }
     if (Number(this.state.nights) === 1) {
@@ -417,7 +436,7 @@ class BedroomDetailOriginal extends Component {
   };
 
   render() {
-    const {price, nights, isSelected, total} = this.state;
+    const {price, nights, isSelected, total, room_type, duration} = this.state;
     return (
       <View style={styles.root}>
         <View style={styles.header}>
@@ -526,17 +545,38 @@ class BedroomDetailOriginal extends Component {
                   <View>
                     <Text style={styles.texttiny}>Check-in</Text>
                     <View style={styles.wraptextmedium}>
-                      <Text style={styles.textmedium}>28 Jan 2020</Text>
-                      <View style={styles.badgemed} />
+                      <DatePicker
+                        style={styles.date}
+                        date={this.state.date}
+                        mode="date"
+                        placeholder="select date"
+                        format="YYYY-MM-DD"
+                        minDate={new Date()}
+                        maxDate="2096-06-01"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        showIcon={false}
+                        onDateChange={date => {
+                          this.setState({date});
+                        }}
+                        customStyles={{dateInput: {borderWidth: 0}}}
+                      />
                     </View>
                   </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.flex}>
+                <TouchableOpacity
+                  style={styles.flex}
+                  onPress={() => this.props.navigation.navigate('ListDurasi')}>
                   <View>
                     <Text style={styles.texttiny}>Durasi Menginap</Text>
                     <View style={styles.wraptextmedium}>
-                      <Text style={styles.textmedium}>1 Malam</Text>
+                      <Input
+                        keyboardType="number-pad"
+                        value={duration}
+                        onChangeText={e => this.handleDuration(e)}
+                      />
+                      <Text style={styles.textmedium}> Malam</Text>
                       <View style={styles.badgemed} />
                     </View>
                   </View>
@@ -558,22 +598,22 @@ class BedroomDetailOriginal extends Component {
                   </View>
                   <View style={styles.wraprightitem}>
                     <Text style={styles.texttiny}>Harga Per Malam</Text>
-                    <Text style={styles.textlinetr}>Rp 160.900</Text>
                     <Text style={styles.textprice}>Rp {v.price}</Text>
-                    <TouchableOpacity onPress={this.handleSelect}>
-                      <View style={styles.button}>
-                        <Text style={styles.textbutton}>Pilih</Text>
-                      </View>
-                    </TouchableOpacity>
+                    {this.props.login.data.auth && (
+                      <TouchableOpacity
+                        onPress={() => this.handleSelect(v.price, v.room_type)}>
+                        <View style={styles.button}>
+                          <Text style={styles.textbutton}>Pilih</Text>
+                        </View>
+                      </TouchableOpacity>
+                    )}
                   </View>
                 </View>
               ))
             ) : (
               <View style={styles.wrapsuggesroom1}>
                 <View style={styles.wrapleftitem}>
-                  <Text style={styles.texttinybluea}>
-                    Airy Rooms Standard Double
-                  </Text>
+                  <Text style={styles.texttinybluea}>{room_type}</Text>
                   <Text style={styles.textinfoa}>2 Tamu / Kamar</Text>
                   <Text style={styles.textinfoa}>Tidak Termasuk Sarapan</Text>
                   <Text style={styles.textinfoa}>Double</Text>
@@ -581,7 +621,6 @@ class BedroomDetailOriginal extends Component {
                 </View>
                 <View style={styles.wraprightitem}>
                   <Text style={styles.texttiny}>Harga Per Malam</Text>
-                  <Text style={styles.textlinetr}>Rp 160.900</Text>
                   <Text style={styles.textprice}>Rp {price}</Text>
                   <View style={styles.button}>
                     <TouchableOpacity onPress={this.removeNights}>
@@ -615,7 +654,13 @@ class BedroomDetailOriginal extends Component {
           <View style={styles.wrapbutton1}>
             {this.props.login.data.auth && (
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('OrderProcess')}>
+                onPress={() =>
+                  this.props.navigation.navigate('OrderProcess', {
+                    date: this.state.date,
+                    duration: duration,
+                    total: total,
+                  })
+                }>
                 <View style={styles.button1}>
                   <Text style={styles.textbuttonpilih}>Lanjutkan</Text>
                 </View>

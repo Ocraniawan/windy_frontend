@@ -3,6 +3,7 @@ import {Text, View, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {ScrollView} from 'react-native-gesture-handler';
 import {withNavigation} from 'react-navigation';
+import {connect} from 'react-redux';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -212,4 +213,9 @@ class ListDurasiOriginal extends Component {
 }
 
 const ListDurasi = withNavigation(ListDurasiOriginal);
-export default ListDurasi;
+const mapStateToProps = state => {
+  return {
+    guest: state.guest,
+  };
+};
+export default connect(mapStateToProps)(ListDurasi);

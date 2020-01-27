@@ -11,6 +11,7 @@ import {withNavigation} from 'react-navigation';
 import DatePicker from 'react-native-datepicker';
 import {connect} from 'react-redux';
 import {gethotel} from '../../redux/action/Hotel';
+import {hotelguestdate} from '../../redux/action/Hotelguestinfo';
 import {Input} from 'native-base';
 
 const styles = StyleSheet.create({
@@ -159,7 +160,7 @@ class BedroomOriginal extends Component {
                     cancelBtnText="Cancel"
                     showIcon={false}
                     onDateChange={date => {
-                      this.setState({date: date});
+                      this.props.dispatch(hotelguestdate(date));
                     }}
                     customStyles={{dateInput: {borderWidth: 0}}}
                   />

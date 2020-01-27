@@ -10,6 +10,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {Form, Item, Input, Label} from 'native-base';
 import {withNavigation} from 'react-navigation';
+import {connect} from 'react-redux';
 import {Dropdown} from 'react-native-material-dropdown';
 
 const styles = StyleSheet.create({
@@ -191,6 +192,32 @@ const styles = StyleSheet.create({
 });
 
 class OrderProcessOriginal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      date: '',
+      duration: '',
+      total: '',
+    };
+  }
+
+  componentDidMount() {
+    const date = this.props.navigation.getParam('date');
+    const duration = this.props.navigation.getParam('duration');
+    const total = this.props.navigation.getParam('total');
+
+    this.buildData(date, duration, total);
+  }
+
+  buildData = (date, duration, total) => {
+    this.setState({
+      date,
+      duration,
+      total,
+    });
+  };
+
   render() {
     let data = [
       {
@@ -299,7 +326,9 @@ class OrderProcessOriginal extends Component {
               <View style={styles.wraprighitem}>
                 <Text>Airy BaranangSiang</Text>
                 <Text>Bogor, Jawa Barat</Text>
-                <Text>30 Januari 2020 - 2 Februari 2020</Text>
+                <Text>
+                  {this.state.date} - {this.state.date + this.state.duration}
+                </Text>
               </View>
             </View>
             <View style={styles.wrapinfo}>
@@ -307,7 +336,7 @@ class OrderProcessOriginal extends Component {
                 <Text style={styles.nama}>
                   Airy Rooms Standard Single 3 Malam (x1)
                 </Text>
-                <Text style={styles.harga}> Rp 822.096</Text>
+                <Text style={styles.harga}> Rp {this.state.total}</Text>
               </View>
             </View>
             <View style={styles.wrapdata}>
@@ -331,7 +360,7 @@ class OrderProcessOriginal extends Component {
         <View style={styles.bottom}>
           <View style={styles.flex}>
             <Text>Total Pembayaran</Text>
-            <Text style={styles.price}>Rp 882.096</Text>
+            <Text style={styles.price}>Rp {this.state.total}</Text>
           </View>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Payment')}>
@@ -346,4 +375,10 @@ class OrderProcessOriginal extends Component {
 }
 
 const OrderProcess = withNavigation(OrderProcessOriginal);
-export default OrderProcess;
+const mapStateToProps = state => {
+  return {
+    login: state.login,
+  };
+};
+
+export default connect(mapStateToProps)(OrderProcess);
