@@ -187,14 +187,14 @@ class MenuOriginal extends Component {
               </TouchableOpacity>
             </View>
           </LinearGradient>
-
+{/* 
           <TouchableOpacity>
             <View style={styles.bannerlogin}>
               <View style={styles.wraptextbanlog} />
               <Text style={styles.textwelcome}>Selamat datang,</Text>
               <Text style={styles.textusername}>Modi taruna</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <View style={styles.wraplistmenu}>
             <TouchableOpacity>

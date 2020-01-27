@@ -339,7 +339,7 @@ const BottomNav = createBottomTabNavigator(
 const SwitchNav = createSwitchNavigator(
   {SplashscreenNav, AuthNav, BottomNav},
   {
-    initialRouteName: 'BottomNav',
+    initialRouteName: 'SplashscreenNav',
   },
 );
 

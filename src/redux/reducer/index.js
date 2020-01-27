@@ -2,32 +2,28 @@ import {combineReducers} from 'redux';
 
 import hotel from './Hotel';
 import detailhotel from './Detailhotel';
+import hotelcheckout from './Hotelcheckout';
 import login from './Login';
 import Register from './Register';
 import guest from './Hotelguestinfo';
 import detailuser from './Detailhotel';
-// import detailriview from './Detailriviews';
-// import detailrestaurant from './Detailrestaurant';
-// import menurestaurant from './Menurestaurant';
-// import restaurant from './Restaurant';
-// import popularitem from './Pupularitem';
-// import categories from './Categories';
-// import login from './Login';
+import edituser from './Edithotel';
+import detailbalance from './Detailbalance';
+import topupbalance from './Topupbalance';
+import historybooked from './HistoryBooked';
 
 const appReducer = combineReducers({
   hotel,
   detailhotel,
+  hotelcheckout,
   login,
   Register,
   guest,
   detailuser,
-  //   restaurant,
-  //   popularitem,
-  //   categories,
-  //   detailriview,
-  //   detailrestaurant,
-  //   menurestaurant,
-  //   login,
+  edituser,
+  detailbalance,
+  topupbalance,
+  historybooked,
 });
 
 export default appReducer;

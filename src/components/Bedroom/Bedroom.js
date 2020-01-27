@@ -162,7 +162,8 @@ class BedroomOriginal extends Component {
                     onDateChange={date => {
                       this.props.dispatch(hotelguestdate(date));
                     }}
-                    customStyles={{dateInput: {borderWidth: 0}}}
+                    customStyles={{dateInput:
+                            {borderWidth: 0,alignItems:'flex-start'}}}
                   />
                   {/* <Text style={styles.tinytext}>Check-in</Text>
                   <Text style={styles.text}>21 Januari 2020</Text> */}
