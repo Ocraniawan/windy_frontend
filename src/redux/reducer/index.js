@@ -7,7 +7,7 @@ import login from './Login';
 import Register from './Register';
 import guest from './Hotelguestinfo';
 import detailuser from './Detailhotel';
-import edituser from './Edithotel';
+import edituser from './Edituser';
 import detailbalance from './Detailbalance';
 import topupbalance from './Topupbalance';
 import historybooked from './HistoryBooked';

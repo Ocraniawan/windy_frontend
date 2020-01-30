@@ -25,6 +25,24 @@ const login = (state = initialState, action) => {
         isLoading: false,
         isError: false,
       };
+    case 'GET_LOGOUT_PENDING':
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case 'GET_LOGOUT_REJECTED':
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    case 'GET_LOGOUT_FULFILLED':
+      return {
+        data: action.payload.data,
+        isLoading: false,
+        isError: false,
+      };
     default:
       return state;
   }

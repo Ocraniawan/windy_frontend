@@ -8,3 +8,13 @@ export const postLogin = data => {
     payload: Axios.post(url.concat('/'), data),
   };
 };
+export const getLogout = jwt => {
+  return {
+    type: 'GET_LOGOUT',
+    payload: Axios.get(url.concat('/'), {
+      headers: {
+        Authorization: 'Bearer ' + jwt,
+      },
+    }),
+  };
+};

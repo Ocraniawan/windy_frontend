@@ -11,6 +11,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Form, Item, Input, Label} from 'native-base';
 import {withNavigation} from 'react-navigation';
 import {Dropdown} from 'react-native-material-dropdown';
+import {connect} from 'react-redux';
+import {getLogout} from '../../redux/action/Login';
 
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
@@ -131,6 +133,20 @@ const styles = StyleSheet.create({
 });
 
 class AccountOriginal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // jwt: '',
+    };
+  }
+
+  async handleSubmit() {
+    const jwt = this.props.login.data.auth;
+    console.log(jwt);
+    await this.props.dispatch(getLogout(jwt));
+    await this.props.navigation.navigate('Login');
+  }
+
   render() {
     let data = [
       {
@@ -244,8 +260,7 @@ class AccountOriginal extends Component {
               </TouchableOpacity>
             </View>
             <View style={styles.wraplogout}>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('ChangePass')}>
+              <TouchableOpacity onPress={() => this.handleSubmit()}>
                 <Text style={styles.textlogout}>LOGOUT</Text>
               </TouchableOpacity>
             </View>
@@ -257,4 +272,11 @@ class AccountOriginal extends Component {
 }
 
 const Account = withNavigation(AccountOriginal);
-export default Account;
+
+const mapStateToProps = state => {
+  return {
+    login: state.login,
+  };
+};
+
+export default connect(mapStateToProps)(Account);
